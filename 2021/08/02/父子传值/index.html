@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | TeFuir</title>
+  <title>TeFuir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="真正的大师永远怀着学徒的心">
-<meta property="og:type" content="website">
+  <meta name="description" content="uni-App父组件到子组件之间的通讯 uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题 单纯的父组件到子组件传递值12345678&#x2F;&#x2F;父组件	&lt;collectionMethod :showModal&#x3D;&quot;showModal&quot; bottoms&#x3D;&quot;0&quot; @onhide&#x3D;&quot;onhide&quot; :centerN">
+<meta property="og:type" content="article">
 <meta property="og:title" content="TeFuir">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+<meta property="og:url" content="http://example.com/2021/08/02/%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/index.html">
 <meta property="og:site_name" content="TeFuir">
-<meta property="og:description" content="真正的大师永远怀着学徒的心">
+<meta property="og:description" content="uni-App父组件到子组件之间的通讯 uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题 单纯的父组件到子组件传递值12345678&#x2F;&#x2F;父组件	&lt;collectionMethod :showModal&#x3D;&quot;showModal&quot; bottoms&#x3D;&quot;0&quot; @onhide&#x3D;&quot;onhide&quot; :centerN">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-02T06:13:31.863Z">
+<meta property="article:modified_time" content="2021-08-02T06:13:43.176Z">
 <meta property="article:author" content="TeFuir">
 <meta name="twitter:card" content="summary">
   
@@ -152,70 +154,145 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-父子传值" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>uni-App父组件到子组件之间的通讯</p>
+<h1 id="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"><a href="#uni-App父组件到子组件之间的通讯与父组件调用子组件方法" class="headerlink" title="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"></a>uni-App父组件到子组件之间的通讯与父组件调用子组件方法</h1><p>记录工作终于到的小问题</p>
+<h2 id="单纯的父组件到子组件传递值"><a href="#单纯的父组件到子组件传递值" class="headerlink" title="单纯的父组件到子组件传递值"></a>单纯的父组件到子组件传递值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父组件</span></span><br><span class="line">	&lt;collectionMethod :showModal=<span class="string">&quot;showModal&quot;</span> bottoms=<span class="string">&quot;0&quot;</span> @onhide=<span class="string">&quot;onhide&quot;</span> :centerName=<span class="string">&quot;centerName&quot;</span></span><br><span class="line">			@collectionStatus=<span class="string">&quot;collectionStatus&quot;</span> :address.sync=<span class="string">&quot;address&quot;</span> :addressFull.sync=<span class="string">&quot;addressFull&quot;</span></span><br><span class="line">			:phone.sync=<span class="string">&quot;phone&quot;</span> :name.sync=<span class="string">&quot;name&quot;</span> @insteadPhone=<span class="string">&quot;insteadPhone&quot;</span> @insteadId=<span class="string">&quot;insteadId&quot;</span></span><br><span class="line">			@addressData=<span class="string">&quot;addressData&quot;</span>&gt;</span><br><span class="line">		&lt;/collectionMethod&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子组件</span></span><br><span class="line"><span class="attr">props</span>: &#123;</span><br><span class="line">			<span class="attr">showModal</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">Boolean</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="literal">false</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">bottoms</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="number">0</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">addressFull</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">address</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">phone</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">name</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;,</span><br></pre></td></tr></table></figure>
+<p>collectionMethod 是子组件名字，要在父组件引用以及挂载</p>
+<h2 id="从其他页面携带参数返回本页面时的父子传递以及携带方法"><a href="#从其他页面携带参数返回本页面时的父子传递以及携带方法" class="headerlink" title="从其他页面携带参数返回本页面时的父子传递以及携带方法"></a>从其他页面携带参数返回本页面时的父子传递以及携带方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//携带参数页面</span></span><br><span class="line">   <span class="function"><span class="title">checkAddress</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	  <span class="keyword">var</span> pages = getCurrentPages();</span><br><span class="line">	  <span class="keyword">var</span> currPage = pages[pages.length - <span class="number">1</span>];   <span class="comment">//当前页面</span></span><br><span class="line">	  <span class="keyword">var</span> prevPage = pages[pages.length - <span class="number">2</span>];  <span class="comment">//上一个页面</span></span><br><span class="line">	  prevPage.setData(&#123;</span><br><span class="line">		 <span class="attr">title</span>: <span class="built_in">this</span>.addreddList[e]<span class="comment">//title为接收页面数据的变量</span></span><br><span class="line">	  &#125;)</span><br><span class="line">	  <span class="comment">//返回上一页面</span></span><br><span class="line">	  uni.navigateBack(&#123;</span><br><span class="line">		 <span class="attr">delta</span>: <span class="number">1</span>,</span><br><span class="line">	  &#125;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父组件</span></span><br><span class="line">		<span class="function"><span class="title">onShow</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">			<span class="comment">//页面返回携带信息处理</span></span><br><span class="line">			<span class="keyword">let</span> pages = getCurrentPages();</span><br><span class="line">			<span class="keyword">let</span> currPage = pages[pages.length - <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span> (currPage.data.title == <span class="literal">undefined</span> || currPage.data.title == <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">&#x27;kkk&#x27;</span>)</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//数据页面带回数据title</span></span><br><span class="line">				<span class="built_in">console</span>.log(currPage.data.title)</span><br><span class="line">				<span class="keyword">if</span> (currPage.data.title.country) &#123;</span><br><span class="line">					<span class="built_in">this</span>.address = currPage.data.title.country + currPage.data.title.province + currPage.data.title.city +</span><br><span class="line">						currPage.data.title.cityRegion</span><br><span class="line">					<span class="built_in">this</span>.addressFull = currPage.data.title.address</span><br><span class="line">					<span class="built_in">this</span>.phone = currPage.data.title.phone</span><br><span class="line">					<span class="built_in">this</span>.name = currPage.data.title.userName</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子组件</span></span><br><span class="line"><span class="attr">props</span>: &#123;</span><br><span class="line">			<span class="attr">showModal</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">Boolean</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="literal">false</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">bottoms</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="number">0</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">addressFull</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">address</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">phone</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">name</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p><em>尤其注意当数据携带过来时需要之前的数据清空赋值</em></p>
+<h2 id="关于用户使用中修改父组件传递过来的参数"><a href="#关于用户使用中修改父组件传递过来的参数" class="headerlink" title="关于用户使用中修改父组件传递过来的参数"></a>关于用户使用中修改父组件传递过来的参数</h2><p>创建copy变量，用watch监听父组件传来的值，然后赋值给copy变量，用户操作copy变量就好，这样即可避免用户直接操作父组件的值，引起vue报错。然后进行copy变量的监听，用 <em>this.$emit</em> 方法将值同步到父组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">			<span class="function"><span class="title">copyName</span>(<span class="params">newVal, oldVal</span>)</span> &#123;</span><br><span class="line">				<span class="built_in">this</span>.$emit(<span class="string">&#x27;update:name&#x27;</span>, newVal)</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">name</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">this</span>.copyName = <span class="built_in">this</span>.name</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">copyPhone</span>(<span class="params">newVal, oldVal</span>)</span> &#123;</span><br><span class="line">				<span class="built_in">this</span>.$emit(<span class="string">&#x27;update:phone&#x27;</span>, newVal)</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">phone</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">this</span>.copyPhone = <span class="built_in">this</span>.phone</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">copyAddress</span>(<span class="params">newVal, oldVal</span>)</span> &#123;</span><br><span class="line">				<span class="built_in">this</span>.$emit(<span class="string">&#x27;update:addressFull&#x27;</span>, newVal)</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">addressFull</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">this</span>.copyAddress = <span class="built_in">this</span>.addressFull</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="function"><span class="title">address</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">this</span>.addressData.province = <span class="built_in">this</span>.address</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br></pre></td></tr></table></figure>
+<p>  <em>update:</em> 后面是<em>prop</em> 中父组件传递过来的参数，监听到子组件数据发生改变时将数据同步给父组件</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>一定要熟悉父子组件直接通讯的监听，值得注意的是因为某些对客户显示的问题以及在子组件中不可以修改父组件传递过来的参数，所以需要使用copy数据（新建一个变量用来储存数据），用事件监听来判别传入的数据是否改变，然后对copy的数据进行赋值，从而在不改变父组件传递的值的情况下支持用户修改input弹窗里的数值。<em>v-model的值为copy的变量</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/08/02/%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/" class="archive-article-date">
-  	<time datetime="2021-08-02T06:13:31.863Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/02/%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/30/webpack%E6%89%93%E5%8C%85%E6%8F%90%E7%A4%BA_%20Uncaught%20Error_%20Cannot%20find%20module%20%E2%80%98strip-ansi%E2%80%98/" class="archive-article-date">
-  	<time datetime="2021-07-30T06:12:22.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/07/30/webpack%E6%89%93%E5%8C%85%E6%8F%90%E7%A4%BA_%20Uncaught%20Error_%20Cannot%20find%20module%20%E2%80%98strip-ansi%E2%80%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack打包</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/30/webpack%E6%89%93%E5%8C%85%E6%8F%90%E7%A4%BA_%20Uncaught%20Error_%20Cannot%20find%20module%20%E2%80%98strip-ansi%E2%80%98/">webpack打包</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#uni-App%E7%88%B6%E7%BB%84%E4%BB%B6%E5%88%B0%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E8%AE%AF%E4%B8%8E%E7%88%B6%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8%E5%AD%90%E7%BB%84%E4%BB%B6%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">uni-App父组件到子组件之间的通讯与父组件调用子组件方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E7%BA%AF%E7%9A%84%E7%88%B6%E7%BB%84%E4%BB%B6%E5%88%B0%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E5%80%BC"><span class="toc-number">1.1.</span> <span class="toc-text">单纯的父组件到子组件传递值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2%E6%90%BA%E5%B8%A6%E5%8F%82%E6%95%B0%E8%BF%94%E5%9B%9E%E6%9C%AC%E9%A1%B5%E9%9D%A2%E6%97%B6%E7%9A%84%E7%88%B6%E5%AD%90%E4%BC%A0%E9%80%92%E4%BB%A5%E5%8F%8A%E6%90%BA%E5%B8%A6%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">从其他页面携带参数返回本页面时的父子传递以及携带方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E4%B8%AD%E4%BF%AE%E6%94%B9%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E8%BF%87%E6%9D%A5%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">关于用户使用中修改父组件传递过来的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">1.4.</span> <span class="toc-text">结语</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -238,8 +315,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
