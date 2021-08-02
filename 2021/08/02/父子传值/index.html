@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>TeFuir</title>
+  <title>uni-App父组件到子组件之间的通讯 | TeFuir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="uni-App父组件到子组件之间的通讯 uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题 单纯的父组件到子组件传递值12345678&#x2F;&#x2F;父组件	&lt;collectionMethod :showModal&#x3D;&quot;showModal&quot; bottoms&#x3D;&quot;0&quot; @onhide&#x3D;&quot;onhide&quot; :centerN">
+  <meta name="description" content="uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TeFuir">
+<meta property="og:title" content="uni-App父组件到子组件之间的通讯">
 <meta property="og:url" content="http://example.com/2021/08/02/%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/index.html">
 <meta property="og:site_name" content="TeFuir">
-<meta property="og:description" content="uni-App父组件到子组件之间的通讯 uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题 单纯的父组件到子组件传递值12345678&#x2F;&#x2F;父组件	&lt;collectionMethod :showModal&#x3D;&quot;showModal&quot; bottoms&#x3D;&quot;0&quot; @onhide&#x3D;&quot;onhide&quot; :centerN">
+<meta property="og:description" content="uni-App父组件到子组件之间的通讯与父组件调用子组件方法记录工作终于到的小问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-02T06:13:31.863Z">
-<meta property="article:modified_time" content="2021-08-02T06:13:43.176Z">
+<meta property="article:modified_time" content="2021-08-02T06:19:13.709Z">
 <meta property="article:author" content="TeFuir">
 <meta name="twitter:card" content="summary">
   
@@ -157,10 +157,25 @@
             <article id="post-父子传值" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      uni-App父组件到子组件之间的通讯
+    </h1>
+  
+
+        
+        <a href="/2021/08/02/%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/" class="archive-article-date">
+  	<time datetime="2021-08-02T06:13:31.863Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>uni-App父组件到子组件之间的通讯</p>
-<h1 id="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"><a href="#uni-App父组件到子组件之间的通讯与父组件调用子组件方法" class="headerlink" title="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"></a>uni-App父组件到子组件之间的通讯与父组件调用子组件方法</h1><p>记录工作终于到的小问题</p>
+        <h1 id="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"><a href="#uni-App父组件到子组件之间的通讯与父组件调用子组件方法" class="headerlink" title="uni-App父组件到子组件之间的通讯与父组件调用子组件方法"></a>uni-App父组件到子组件之间的通讯与父组件调用子组件方法</h1><p>记录工作终于到的小问题</p>
+<span id="more"></span>
 <h2 id="单纯的父组件到子组件传递值"><a href="#单纯的父组件到子组件传递值" class="headerlink" title="单纯的父组件到子组件传递值"></a>单纯的父组件到子组件传递值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父组件</span></span><br><span class="line">	&lt;collectionMethod :showModal=<span class="string">&quot;showModal&quot;</span> bottoms=<span class="string">&quot;0&quot;</span> @onhide=<span class="string">&quot;onhide&quot;</span> :centerName=<span class="string">&quot;centerName&quot;</span></span><br><span class="line">			@collectionStatus=<span class="string">&quot;collectionStatus&quot;</span> :address.sync=<span class="string">&quot;address&quot;</span> :addressFull.sync=<span class="string">&quot;addressFull&quot;</span></span><br><span class="line">			:phone.sync=<span class="string">&quot;phone&quot;</span> :name.sync=<span class="string">&quot;name&quot;</span> @insteadPhone=<span class="string">&quot;insteadPhone&quot;</span> @insteadId=<span class="string">&quot;insteadId&quot;</span></span><br><span class="line">			@addressData=<span class="string">&quot;addressData&quot;</span>&gt;</span><br><span class="line">		&lt;/collectionMethod&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子组件</span></span><br><span class="line"><span class="attr">props</span>: &#123;</span><br><span class="line">			<span class="attr">showModal</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">Boolean</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="literal">false</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">bottoms</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="number">0</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">addressFull</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">address</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">phone</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">name</span>: &#123;</span><br><span class="line">				<span class="attr">type</span>: <span class="built_in">String</span>,</span><br><span class="line">				<span class="attr">default</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;,</span><br></pre></td></tr></table></figure>
 <p>collectionMethod 是子组件名字，要在父组件引用以及挂载</p>
